@@ -1,34 +1,74 @@
-# Install first if not installed:
-# pip install dash plotly pandas
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
 
-import dash
-from dash import dcc, html
-import pandas as pd
-import plotly.express as px
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 30px;
+    }
 
-# Sample data
-data = {
-    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    "Sales": [150, 200, 180, 220, 260, 300],
-    "Profit": [50, 80, 70, 90, 110, 130]
-}
-df = pd.DataFrame(data)
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-# Initialize the app
-app = dash.Dash(_name_)
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
 
-# Create figures
-fig_sales = px.line(df, x="Month", y="Sales", title="Monthly Sales")
-fig_profit = px.bar(df, x="Month", y="Profit", title="Monthly Profit")
+    .card p {
+      font-size: 32px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center; padding: 20px;">📊 My Data Dashboard</h1>
 
-# Layout
-app.layout = html.Div([
-    html.H1("📊 Data Dashboard"),
-    
-    dcc.Graph(figure=fig_sales),
-    dcc.Graph(figure=fig_profit)
-])
+  <div class="dashboard">
+    <div class="card">
+      <h3>Total Users</h3>
+      <p id="users">0</p>
+    </div>
+    <div class="card">
+      <h3>Revenue</h3>
+      <p id="revenue">$0</p>
+    </div>
+    <div class="card">
+      <h3>Active Sessions</h3>
+      <p id="sessions">0</p>
+    </div>
+  </div>
 
-# Run the app
-if _name_ == "_main_":
-    app.run_server(debug=True)
+  <script>
+    // Simulated data (you can replace this with real data from APIs or a backend)
+    const data = {
+      users: 1254,
+      revenue: 5423.50,
+      sessions: 183
+    };
+
+    // Update the dashboard
+    document.getElementById('users').textContent = data.users;
+    document.getElementById('revenue').textContent = `$${data.revenue.toLocaleString()}`;
+    document.getElementById('sessions').textContent = data.sessions;
+  </script>
+</body>
+</html>
