@@ -1,0 +1,34 @@
+# Install first if not installed:
+# pip install dash plotly pandas
+
+import dash
+from dash import dcc, html
+import pandas as pd
+import plotly.express as px
+
+# Sample data
+data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    "Sales": [150, 200, 180, 220, 260, 300],
+    "Profit": [50, 80, 70, 90, 110, 130]
+}
+df = pd.DataFrame(data)
+
+# Initialize the app
+app = dash.Dash(_name_)
+
+# Create figures
+fig_sales = px.line(df, x="Month", y="Sales", title="Monthly Sales")
+fig_profit = px.bar(df, x="Month", y="Profit", title="Monthly Profit")
+
+# Layout
+app.layout = html.Div([
+    html.H1("📊 Data Dashboard"),
+    
+    dcc.Graph(figure=fig_sales),
+    dcc.Graph(figure=fig_profit)
+])
+
+# Run the app
+if _name_ == "_main_":
+    app.run_server(debug=True)
